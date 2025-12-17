@@ -1,4 +1,13 @@
 export default async function handler(req, res) {
+  // ✅ CORS headers (QUAN TRỌNG)
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   const BINANCE_P2P_URL =
     "https://p2p.binance.com/bapi/c2c/v2/friendly/c2c/adv/search";
 
@@ -27,28 +36,9 @@ export default async function handler(req, res) {
     return {
       price: Number(item.adv.price),
       minAmount: Number(item.adv.minSingleTransAmount),
-      maxAmount: Number(item.adv.maxSingleTransAmount),
-      nickName: item.advertiser.nickName,
-      monthOrderCount: item.advertiser.monthOrderCount,
-      positiveRate: item.advertiser.positiveRate
+      maxAmount: Number(item.adv.maxSingleTransAmount)
     };
   }
 
   try {
-    const buy = await fetchP2PPrice("BUY");
-    const sell = await fetchP2PPrice("SELL");
-
-    res.status(200).json({
-      asset: "USDT",
-      fiat: "VND",
-      buy,
-      sell,
-      spread: sell.price - buy.price,
-      timestamp: new Date().toISOString()
-    });
-  } catch (error) {
-    res.status(500).json({
-      error: error.message
-    });
-  }
-}
+    const buy = await fetc
