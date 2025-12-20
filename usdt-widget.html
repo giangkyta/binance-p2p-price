@@ -1,8 +1,13 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tỷ giá USDT</title>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap');
+
 :root{
   --radius:clamp(18px,2vw,28px);
   --pad:clamp(20px,3vw,36px);
@@ -14,7 +19,12 @@
   --bg1:#1c0f3a;
   --bg2:#3a1366;
 }
-*{box-sizing:border-box;font-family:system-ui,-apple-system,Montserrat,sans-serif}
+
+*{
+  box-sizing:border-box;
+  font-family:'Montserrat',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+}
+
 body{margin:0;background:transparent}
 
 .widget-root{width:100%;display:flex;justify-content:center}
@@ -42,9 +52,9 @@ body{margin:0;background:transparent}
 }
 .price-box.buy{box-shadow:inset 5px 0 0 var(--green)}
 .price-box.sell{box-shadow:inset 5px 0 0 var(--red)}
-.label{font-size:clamp(14px,2vw,18px);margin-bottom:10px}
+.label{font-size:clamp(14px,2vw,18px);margin-bottom:10px;font-weight:600}
 .value{font-size:clamp(22px,4.5vw,44px);font-weight:800;line-height:1.1}
-.currency{font-size:clamp(14px,2vw,18px);margin-top:4px}
+.currency{font-size:clamp(14px,2vw,18px);margin-top:4px;font-weight:600}
 .buy .value{color:var(--green)}
 .sell .value{color:var(--red)}
 
@@ -69,7 +79,9 @@ body{margin:0;background:transparent}
   .label,.currency{font-size:14px}
 }
 </style>
+</head>
 
+<body>
 <div class="widget-root">
   <div class="widget">
 
@@ -88,7 +100,7 @@ body{margin:0;background:transparent}
 
     <div class="info">
       <div>👑 Giao dịch tối thiểu <b>20$</b></div>
-      <div>⚖️ Dưới <b>100$</b> ± <b>150 VND</b></div>
+      <div>⚖️ Dưới <b>500$</b> ± <b>100 VND</b></div>
     </div>
 
     <div class="divider"></div>
@@ -97,6 +109,7 @@ body{margin:0;background:transparent}
       Đây là bảng giá tham khảo, cần biết chính xác hoặc cashout USD tiền mặt vui lòng inbox Telegram để gặp Đại
     </div>
 
+    <div class="time" id="time">Cập nhật: --:--</div>
 
   </div>
 </div>
@@ -110,3 +123,5 @@ fetch("https://binance-p2p-price.vercel.app/api/price")
     time.innerText="Cập nhật: "+new Date(d.ts).toLocaleTimeString("vi-VN");
   });
 </script>
+</body>
+</html>
