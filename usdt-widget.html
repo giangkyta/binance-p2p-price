@@ -78,6 +78,22 @@ body{margin:0;background:transparent}
   .value{font-size:22px}
   .label,.currency{font-size:14px}
 }
+ /* FIX LỆCH iPAD */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .widget-root {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .widget {
+      width: 100% !important;
+      max-width: 760px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+  }
+  
 </style>
 </head>
 
