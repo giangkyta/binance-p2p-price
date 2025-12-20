@@ -8,92 +8,103 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap');
 
-:root{
-  --radius:clamp(18px,2vw,28px);
-  --pad:clamp(20px,3vw,36px);
-  --gap:clamp(14px,2.5vw,22px);
-  --green:#39ff88;
-  --red:#ff4d4f;
-  --text:#fff;
-  --muted:#d6d6d6;
-  --bg1:#1c0f3a;
-  --bg2:#3a1366;
-}
-
+/* ===== RESET AN TOÀN ===== */
 *{
   box-sizing:border-box;
   font-family:'Montserrat',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
 }
-
-body{margin:0;background:transparent}
-
-.widget-root{width:100%;display:flex;justify-content:center}
-
-.widget{
-  width:min(90vw,760px);
-  background:linear-gradient(135deg,var(--bg1),var(--bg2));
-  border-radius:var(--radius);
-  padding:var(--pad);
-  color:var(--text);
-  box-shadow:0 24px 70px rgba(0,0,0,.45)
+body{
+  margin:0;
+  background:transparent;
+  width:100%;
+  overflow-x:hidden;
 }
 
-/* PRICES */
+/* ===== ROOT CENTER ===== */
+.widget-root{
+  width:100%;
+  display:flex;
+  justify-content:center;
+}
+
+/* ===== CARD (KHÔNG DÙNG vw) ===== */
+.widget{
+  width:100%;
+  max-width:760px;
+  margin:0 auto;
+  padding:clamp(20px,3vw,36px);
+  border-radius:clamp(18px,2vw,28px);
+  background:linear-gradient(135deg,#1c0f3a,#3a1366);
+  color:#fff;
+  box-shadow:0 24px 70px rgba(0,0,0,.45);
+}
+
+/* ===== PRICES ===== */
 .prices{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:var(--gap);
-  margin-bottom:clamp(18px,3vw,28px)
+  gap:clamp(14px,2.5vw,22px);
+  margin-bottom:clamp(18px,3vw,28px);
 }
 .price-box{
   background:rgba(0,0,0,.25);
   border-radius:clamp(16px,2.5vw,22px);
-  padding:clamp(16px,3vw,24px)
+  padding:clamp(16px,3vw,24px);
 }
-.price-box.buy{box-shadow:inset 5px 0 0 var(--green)}
-.price-box.sell{box-shadow:inset 5px 0 0 var(--red)}
-.label{font-size:clamp(14px,2vw,18px);margin-bottom:10px;font-weight:600}
-.value{font-size:clamp(22px,4.5vw,44px);font-weight:800;line-height:1.1}
-.currency{font-size:clamp(14px,2vw,18px);margin-top:4px;font-weight:600}
-.buy .value{color:var(--green)}
-.sell .value{color:var(--red)}
+.price-box.buy{box-shadow:inset 5px 0 0 #39ff88;}
+.price-box.sell{box-shadow:inset 5px 0 0 #ff4d4f;}
 
-/* INFO */
+.label{
+  font-size:clamp(14px,2vw,18px);
+  font-weight:600;
+  margin-bottom:10px;
+}
+.value{
+  font-size:clamp(22px,4.5vw,44px);
+  font-weight:800;
+  line-height:1.1;
+}
+.currency{
+  font-size:clamp(14px,2vw,18px);
+  margin-top:4px;
+  font-weight:600;
+}
+.buy .value{color:#39ff88;}
+.sell .value{color:#ff4d4f;}
+
+/* ===== INFO ===== */
 .info{
   display:grid;
   gap:clamp(10px,2vw,14px);
   font-size:clamp(14px,2vw,18px);
-  margin-bottom:clamp(14px,2.5vw,20px)
+  margin-bottom:clamp(14px,2.5vw,20px);
 }
-.divider{height:1px;background:rgba(255,255,255,.2);margin:clamp(14px,2.5vw,20px) 0}
+.divider{
+  height:1px;
+  background:rgba(255,255,255,.2);
+  margin:clamp(14px,2.5vw,20px) 0;
+}
 
-/* NOTE */
-.note{font-size:clamp(14px,2vw,16px);color:var(--muted);line-height:1.65}
-.time{text-align:right;font-size:13px;opacity:.75;margin-top:12px}
+/* ===== NOTE ===== */
+.note{
+  font-size:clamp(14px,2vw,16px);
+  color:#d6d6d6;
+  line-height:1.65;
+}
+.time{
+  text-align:right;
+  font-size:13px;
+  opacity:.75;
+  margin-top:12px;
+}
 
-/* MOBILE: vẫn 2 cột */
+/* ===== MOBILE: VẪN 2 CỘT ===== */
 @media (max-width:480px){
   .prices{grid-template-columns:1fr 1fr;gap:12px}
   .price-box{padding:14px}
   .value{font-size:22px}
   .label,.currency{font-size:14px}
 }
- /* FIX LỆCH iPAD */
-  @media (min-width: 768px) and (max-width: 1024px) {
-    .widget-root {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .widget {
-      width: 100% !important;
-      max-width: 760px !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
-    }
-  }
-  
 </style>
 </head>
 
@@ -116,7 +127,7 @@ body{margin:0;background:transparent}
 
     <div class="info">
       <div>👑 Giao dịch tối thiểu <b>20$</b></div>
-      <div>⚖️ Dưới <b>100$</b> ± <b>150 VND</b></div>
+      <div>⚖️ Dưới <b>500$</b> ± <b>100 VND</b></div>
     </div>
 
     <div class="divider"></div>
@@ -124,6 +135,9 @@ body{margin:0;background:transparent}
     <div class="note">
       Đây là bảng giá tham khảo, cần biết chính xác hoặc cashout USD tiền mặt vui lòng inbox Telegram để gặp Đại
     </div>
+
+    <div class="time" id="time">Cập nhật: --:--</div>
+
   </div>
 </div>
 
