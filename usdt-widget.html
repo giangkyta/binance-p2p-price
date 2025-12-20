@@ -1,193 +1,112 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>USDT Widget</title>
+<title>Tỷ giá USDT</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+:root{
+  --radius:clamp(18px,2vw,28px);
+  --pad:clamp(20px,3vw,36px);
+  --gap:clamp(14px,2.5vw,22px);
+  --green:#39ff88;
+  --red:#ff4d4f;
+  --text:#fff;
+  --muted:#d6d6d6;
+  --bg1:#1c0f3a;
+  --bg2:#3a1366;
+}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif}
+body{margin:0;background:transparent}
 
-* {
-  box-sizing: border-box;
+.widget-root{width:100%;display:flex;justify-content:center}
+
+.widget{
+  width:min(90vw,760px);
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  border-radius:var(--radius);
+  padding:var(--pad);
+  color:var(--text);
+  box-shadow:0 24px 70px rgba(0,0,0,.45)
 }
 
-body {
-  margin: 0;
-  background: transparent;
-  font-family: 'Montserrat', sans-serif;
+/* PRICES */
+.prices{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:var(--gap);
+  margin-bottom:clamp(18px,3vw,28px)
 }
-
-.widget {
-  width: 100%;
-  max-width: 720px;
-  margin: 0 auto;
-  background: linear-gradient(180deg, #1b1b1b, #101010);
-  border-radius: 20px;
-  padding: 22px 26px;
-  box-shadow: 0 14px 50px rgba(0,0,0,.7);
-  color: #fff;
+.price-box{
+  background:rgba(0,0,0,.25);
+  border-radius:clamp(16px,2.5vw,22px);
+  padding:clamp(16px,3vw,24px)
 }
+.price-box.buy{box-shadow:inset 5px 0 0 var(--green)}
+.price-box.sell{box-shadow:inset 5px 0 0 var(--red)}
+.label{font-size:clamp(14px,2vw,18px);margin-bottom:10px}
+.value{font-size:clamp(22px,4.5vw,44px);font-weight:800;line-height:1.1}
+.currency{font-size:clamp(14px,2vw,18px);margin-top:4px}
+.buy .value{color:var(--green)}
+.sell .value{color:var(--red)}
 
-.price-column {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 18px;
+/* INFO */
+.info{
+  display:grid;
+  gap:clamp(10px,2vw,14px);
+  font-size:clamp(14px,2vw,18px);
+  margin-bottom:clamp(14px,2.5vw,20px)
 }
+.divider{height:1px;background:rgba(255,255,255,.2);margin:clamp(14px,2.5vw,20px) 0}
 
-.price-box {
-  background: linear-gradient(180deg, #34106a, #220b44);
-  border-radius: 18px;
-  padding: 18px 12px;
-  text-align: center;
-}
+/* NOTE */
+.note{font-size:clamp(14px,2vw,16px);color:var(--muted);line-height:1.65}
+.time{text-align:right;font-size:13px;opacity:.75;margin-top:12px}
 
-.price-box.buy {
-  box-shadow: inset 0 0 0 2px rgba(57,255,136,.5);
-}
-
-.price-box.sell {
-  box-shadow: inset 0 0 0 2px rgba(255,77,79,.5);
-}
-
-.icon {
-  font-size: 20px;
-  margin-bottom: 6px;
-}
-
-.label {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #cfc7e3;
-}
-
-.value {
-  font-size: 36px;
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.buy .value { color: #39ff88; }
-.sell .value { color: #ff4d4f; }
-
-.currency {
-  font-size: 20px;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.info {
-  font-size: 16px;
-  line-height: 1.8;
-  margin-bottom: 14px;
-}
-
-.info-line {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-svg.icon {
-  width: 22px;
-  height: 22px;
-  fill: #fff;
-}
-
-.divider {
-  height: 1px;
-  background: rgba(255,255,255,.15);
-  margin: 14px 0;
-}
-
-.note {
-  font-size: 18px;
-  color: #b0b0b0;
-  line-height: 2;
-}
-
-.time {
-  margin-top: 8px;
-  font-size: 12px;
-  text-align: right;
-  color: #101010;
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-  .widget {
-    padding: 18px;
-  }
-  .price-column {
-    grid-template-columns: 1fr;
-  }
-  .value {
-    font-size: 22px;
-  }
+/* MOBILE: vẫn 2 cột */
+@media (max-width:480px){
+  .prices{grid-template-columns:1fr 1fr;gap:12px}
+  .price-box{padding:14px}
+  .value{font-size:22px}
+  .label,.currency{font-size:14px}
 }
 </style>
-</head>
 
-<body>
+<div class="widget-root">
+  <div class="widget">
 
-<div class="widget">
-  <div class="price-column">
-    <div class="price-box buy">
-      <div class="icon">📉</div>
-      <div class="label">Mua vào</div>
-      <div class="value" id="buy">--</div>
-      <div class="currency">VNĐ</div>
+    <div class="prices">
+      <div class="price-box buy">
+        <div class="label">💸 Mua vào</div>
+        <div class="value" id="buy">--</div>
+        <div class="currency">VND</div>
+      </div>
+      <div class="price-box sell">
+        <div class="label">💰 Bán ra</div>
+        <div class="value" id="sell">--</div>
+        <div class="currency">VND</div>
+      </div>
     </div>
 
-    <div class="price-box sell">
-      <div class="icon">📈</div>
-      <div class="label">Bán ra</div>
-      <div class="value" id="sell">--</div>
-      <div class="currency">VNĐ</div>
-    </div>
-  </div>
-
-  <div class="info">
-    <div class="info-line">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M5 16l-2-9 5 4 4-6 4 6 5-4-2 9H5z"></path>
-        <path d="M5 18h14v2H5z"></path>
-      </svg>
-      <span>Giao dịch tối thiểu <b>20$</b></span>
+    <div class="info">
+      <div>👑 Giao dịch tối thiểu <b>20$</b></div>
+      <div>⚖️ Dưới <b>100$</b> ± <b>150 VND</b></div>
     </div>
 
-    <div class="info-line">
-      <svg class="icon" viewBox="0 0 24 24">
-        <path d="M12 3l3 4h-2v13h-2V7H9l3-4z"></path>
-        <path d="M4 7h6l-3 5-3-5zM14 7h6l-3 5-3-5z"></path>
-      </svg>
-      <span>Dưới <b>100$</b> ± <b>150 VND</b></span>
+    <div class="divider"></div>
+
+    <div class="note">
+      Đây là bảng giá tham khảo, cần biết chính xác hoặc cashout USD tiền mặt vui lòng inbox Telegram để gặp Đại
     </div>
-  </div>
 
-  <div class="divider"></div>
 
-  <div class="note">
-    <div>Lưu ý:</div>
-    <div>Đây là bảng giá tham khảo, cần biết chính xác hoặc cashout USD tiền mặt vui lòng inbox Telegram để gặp Đại</div>
-    <div class="time" id="time">Cập nhật: --:--</div>
   </div>
 </div>
 
 <script>
 fetch("https://binance-p2p-price.vercel.app/api/price")
-  .then(r => r.json())
-  .then(d => {
-    document.getElementById("buy").innerText = d.buy.toLocaleString("vi-VN");
-    document.getElementById("sell").innerText = d.sell.toLocaleString("vi-VN");
-    document.getElementById("time").innerText =
-      "Cập nhật: " + new Date(d.ts).toLocaleTimeString("vi-VN");
+  .then(r=>r.json())
+  .then(d=>{
+    buy.innerText=d.buy.toLocaleString("vi-VN");
+    sell.innerText=d.sell.toLocaleString("vi-VN");
+    time.innerText="Cập nhật: "+new Date(d.ts).toLocaleTimeString("vi-VN");
   });
 </script>
-
-</body>
-</html>
