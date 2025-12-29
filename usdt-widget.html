@@ -122,36 +122,57 @@ body{
   color: #0b0b0b;
 }
 /* ===== Desktop ===== */
-  @media (min-width: 768px) {
+  /* ================================
+   DESKTOP ENHANCEMENT ONLY
+   Không ảnh hưởng mobile
+   ================================ */
+@media (min-width: 768px) {
+
+  /* Gọn card chính */
   .widget {
-    padding-bottom: 48px !important; /* từ 64px → gọn hơn */
+    padding-bottom: 48px !important;
   }
-}
-  @media (min-width: 768px) {
+
+  /* Giá to, rõ, premium hơn */
+  .price-box .value {
+    font-size: 42px !important;
+    letter-spacing: .5px;
+  }
+
+  .price-box .currency {
+    font-size: 14px !important;
+    opacity: .85;
+  }
+
+  /* Hiệu ứng hover nhẹ – không phá layout */
   .price-box {
-    transition: 
-      transform .25s ease,
-      box-shadow .25s ease;
+    transition: transform .25s ease, box-shadow .25s ease;
   }
 
   .price-box:hover {
     transform: translateY(-4px);
     box-shadow:
-      0 20px 40px rgba(0,0,0,.45),
-      inset 0 0 0 1px rgba(255,255,255,.08);
-  }
-}
-@media (min-width: 768px) {
-  .price-box .price {
-    font-size: 42px; /* desktop to hơn */
-    letter-spacing: .5px;
+      0 18px 36px rgba(0,0,0,.4),
+      inset 0 0 0 1px rgba(255,255,255,.06);
   }
 
-  .price-box .currency {
-    opacity: .85;
-    font-size: 14px;
+  /* Nhịp đọc dễ chịu hơn */
+  .info {
+    font-size: 18px;
   }
+
+  .note {
+    font-size: 16.5px;
+    line-height: 1.6;
+  }
+
+  /* Thời gian dễ nhìn trên nền tối */
+  .time {
+    color: #9e9e9e !important;
+  }
+
 }
+
 
   
 /* ===== MOBILE ===== */
