@@ -175,10 +175,29 @@ padding-top: 20px;
 
 <script>
 fetch("https://binance-p2p-price.vercel.app/api/price")
-  .then(r=>r.json())
-  .then(d=>{
-    buy.innerText=d.buy.toLocaleString("vi-VN");
-    sell.innerText=d.sell.toLocaleString("vi-VN");
+  .then(r => r.json())
+  .then(d => {
+    // GIÁ GỐC (bạn chỉnh lại key cho đúng với API nếu khác)
+    const basePrice = Number(d.price || d.usdt || d.buy || d.sell);
+
+    // TÍNH GIÁ
+    const buyPrice  = basePrice * 0.99; // mua 99%
+    const sellPrice = basePrice * 1.01; // bán 101%
+
+    // HIỂN THỊ
+    document.getElementById("buy").innerText  =
+      Math.round(buyPrice).toLocaleString("vi-VN");
+
+    document.getElementById("sell").innerText =
+      Math.round(sellPrice).toLocaleString("vi-VN");
+
+    // THỜI GIAN CẬP NHẬT
+    const now = new Date();
+    document.getElementById("time").innerText =
+      "Cập nhật: " + now.toLocaleTimeString("vi-VN");
+  })
+  .catch(err => {
+    console.error(err);
   });
 </script>
 </body>
